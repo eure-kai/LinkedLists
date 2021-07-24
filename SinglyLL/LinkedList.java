@@ -1,7 +1,5 @@
 
-
 public class LinkedList<T> implements List<T> {
-
 
     public class Node {
 
@@ -145,7 +143,6 @@ public class LinkedList<T> implements List<T> {
 
         StringBuilder wordBuilder = new StringBuilder("[");
 
-
         if (this.getLength() == 0) return "[]";
 
         while (temp.getNext() != null) {
@@ -159,6 +156,4 @@ public class LinkedList<T> implements List<T> {
         return word;
 
     }
-
-
 }

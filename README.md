@@ -1,2 +1,2 @@
 # LinkedLists
-Java implementation of Singly Linked List and Doubly Linked List (July 2021)
+Java implementation of Linked List - Singly and Doubly (July 2021)

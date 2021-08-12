@@ -1,159 +1,165 @@
 
 public class LinkedList<T> implements List<T> {
 
-    public class Node {
 
-        private T data;
-        private Node following;
+  private final class Node {
 
-        public Node(T d) {
-            data = d;
-        }
+    private T data;
+    private Node following;
 
-        public void setNext(Node n) {
-            following = n;
-        }
-
-        public Node getNext() {
-            return following;
-        }
-
-        public T getData() {
-            return data;
-        }
-
+    public Node(T d) {
+      data = d;
     }
 
-
-    public Node head;
-
-
-    public int getLength() {
-        if (head == null) return 0;
-
-        else {
-            int count = 1;
-            Node temp = head;
-
-            while (temp.getNext() != null) {
-                temp = temp.getNext();
-                count++;
-            }
-
-            return count;
-        }
+    public void setNext(Node n) {
+      following = n;
     }
 
-    public boolean isEmpty() {
-        return (this.getLength() == 0);
+    public Node getNext() {
+      return following;
     }
 
-
-
-
-    public void insertFront(T data) {
-        Node newBox = new Node(data);
-        newBox.setNext(head);
-        head = newBox;
+    public T getData() {
+      return data;
     }
 
+  }
 
-    public void insertBack(T data) {
-        Node newBox = new Node(data);
 
-        if (head == null) head = newBox;
+  public Node head;
 
-        else {
-            Node temp = head;
 
-            while (temp.getNext() != null) {
-                temp = temp.getNext();
-            }
+  public int getLength() {
+    if (head == null) return 0;
 
-            temp.setNext(newBox);
-        }
+    else {
+      int count = 1;
+      Node temp = head;
+
+      while (temp.getNext() != null) {
+        temp = temp.getNext();
+        count++;
+      }
+
+      return count;
     }
+  }
+
+  public boolean isEmpty() {
+    return (this.getLength() == 0);
+  }
 
 
 
-    public void removeFront() {
-        Node temp = head.getNext();
-        head.setNext(null);
-        head = temp;
+
+  public void insertFront(T data) {
+    Node newBox = new Node(data);
+    newBox.setNext(head);
+    head = newBox;
+  }
+
+
+  public void insertBack(T data) {
+    Node newBox = new Node(data);
+
+    if (head == null) head = newBox;
+    
+    else {
+      Node temp = head;
+  
+      while (temp.getNext() != null) {
+        temp = temp.getNext();
+      }
+  
+      temp.setNext(newBox);
     }
+  }
 
 
-    public void removeBack() {
-        Node temp = head;
 
-        while (temp.getNext().getNext() != null) {
-            temp = temp.getNext();
-        }
+  public void removeFront() {
+    Node temp = head.getNext();
+    head.setNext(null);
+    head = temp;
+  }
 
-        temp.setNext(null);
+
+  public void removeBack() {
+    
+    Node curr = head;
+    Node prev = null;
+
+    while (curr.getNext() != null) {
+      prev = curr;
+      curr = curr.getNext();
     }
+    
+    if (prev == null) head = null;
+    else prev.setNext(null);
+  }
 
 
 
 
-    public T get(int index) {
+  public T get(int index) {
 
-        if (index == 0) {
-            return head.getData();
+    if (index == 0) {
+      return head.getData();
 
+    } else {
+      Node temp = head;
+
+      for (int i = 0; i < index; i++) {
+        if (temp.getNext() != null) {
+          temp = temp.getNext();
+          
         } else {
-            Node temp = head;
-
-            for (int i = 0; i < index; i++) {
-                if (temp.getNext() != null) {
-                    temp = temp.getNext();
-
-
-                } else {
-                    throw new IndexOutOfBoundsException();
-                }
-
-            }
-
-            return temp.getData();
-
-        }
-    }
-
-
-
-    public void clearAll() {
-
-        while (head.getNext() != null) {
-            Node temp = head.getNext();
-            head.setNext(null);
-            head = temp;
+          throw new IndexOutOfBoundsException();
         }
 
-        head = null;
+      }
+      
+      return temp.getData();
 
     }
+  }
 
 
 
-    public String toString() {
+  public void clearAll() {
+    
+    if (head == null) return;
+    
+    this.removeBack();
+    this.clearAll();
+  }
 
-        String word;
-        Node temp = head;
 
-        StringBuilder wordBuilder = new StringBuilder("[");
 
-        if (this.getLength() == 0) return "[]";
+  public String toString() {
+    return "[" + toStringHelper(head) + "]";
+  }
+  
 
-        while (temp.getNext() != null) {
-            wordBuilder.append(temp.getData()).append(", ");
-            temp = temp.getNext();
-        }
-
-        word = wordBuilder.toString();
-        word += temp.getData() + "]";
-
-        return word;
-
+  
+  public String toStringHelper(Node n) {
+    
+    if (n == null) return "";
+    
+    
+    String word;
+    T data = n.getData();
+    
+    if (n.getNext() == null) {
+      word = String.valueOf(data);
     }
+    
+    else {
+      word = String.valueOf(data) + ", " + toStringHelper(n.getNext());
+    }
+    
+    return word;
+  }
+
+
 }
